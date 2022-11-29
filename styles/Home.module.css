@@ -1,15 +1,18 @@
-.container {
-  padding: 0 2rem;
-}
 
 .main {
   min-height: 100vh;
-  padding: 4rem 0;
+  max-width: 1080px;
   flex: 1;
-  display: flex;
+  display: block;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background: #141414;
+  margin: auto;
+}
+
+.body{
+  background: #141414;
 }
 
 .footer {
