@@ -1,5 +1,6 @@
 import '../styles/globals.css'
 import '../styles/navbar.css'
+import '../styles/highlight.css'
 import 'bootstrap/dist/css/bootstrap.css'
 
 function MyApp({ Component, pageProps }) {

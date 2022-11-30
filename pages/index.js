@@ -1,7 +1,10 @@
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import Head from 'next/head'
 import Image from 'next/image'
 import Navbar from '../components/navbar/navbar'
+import Welcome from '../components/welcome/welcome'
 import styles from '../styles/Home.module.css'
+import Highlight from './mainmenu/dashboard'
 
 export default function Home() {
   return (
@@ -15,6 +18,15 @@ export default function Home() {
       <div className={styles.body}>
         <main className={styles.main}>
           <Navbar/>
+          <Welcome/>
+          <div className='row'>
+            <div className='col-lg-3 col-md-4 col-sm-6'>
+              <Highlight/>
+            </div>
+            <div className='col-lg-9 col-md-8 col-sm-6'>
+
+            </div>
+          </div>
         </main>
       </div>
     </div>

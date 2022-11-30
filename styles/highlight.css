@@ -1,0 +1,31 @@
+.box-highlight{
+    background: #191a1b;
+    height: 17vh;
+    min-height: 120px;
+    border-radius: 14px;
+    margin-top: 20px;
+    position: relative;
+    padding: 12px;
+}
+.box-main-text{
+    position: absolute;
+    bottom: 24px;
+}
+.box-secondary-text{
+    position: absolute;
+    bottom: 5px;
+    font-size: 10px;
+    font-style: italic;
+    color:#808080;
+}
+.box-more{
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
+.box-setting{
+    position: absolute;
+    right: 5px;
+    top: 0;
+    color:#8e57f7 !important;
+}

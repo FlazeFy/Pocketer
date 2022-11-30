@@ -15,6 +15,7 @@
 
 .navbar-nav li{
     transition: 0.5s;
+    border:2.5px solid transparent;
 }
 .navbar-nav li:hover{
     border-bottom: 2.5px solid #8e57f7;

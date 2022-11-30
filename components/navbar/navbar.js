@@ -1,7 +1,7 @@
 //Font awesome icon
 import { library } from "@fortawesome/fontawesome-svg-core"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons"
+import { faGear, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons"
 import { } from "@fortawesome/free-regular-svg-icons"
 
 export default function Navbar() {
@@ -31,6 +31,7 @@ export default function Navbar() {
                         </li>
                     </ul>
                     <form className="d-flex">
+                        <a className="btn btn-outline-main me-2"><FontAwesomeIcon icon={faGear} width="14px"/></a>
                         <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"></input>
                         <button className="btn btn-outline-success" type="submit"><FontAwesomeIcon icon={faMagnifyingGlass} width="14px"/></button>
                     </form>

@@ -28,3 +28,37 @@ a {
     color: white;
   }
 }
+
+/*Button*/
+.btn-outline-success{
+  border: 2px solid #00bb8c !important;
+  color:#00bb8c !important;
+  padding: 5px 12px 8px 12px !important;
+}
+.btn-outline-main{
+  border: 2px solid #8e57f7 !important;
+  color:#8e57f7 !important;
+  padding: 5px 12px 8px 12px !important;
+}
+.btn-outline-more{
+  border: 2px solid #808080 !important;
+  color:#808080 !important;
+  padding: 3px 8px 4px 8px !important;
+}
+.btn-link{
+  text-decoration: none !important;
+  padding:0 !important;
+  color:#808080 !important;
+  font-style: italic;
+}
+
+.btn-outline-success:hover{
+  background: #00bb8c !important;
+  color:white !important;
+  border: 2px solid transparent !important;
+}
+.btn-outline-main:hover, .btn-outline-more:hover{
+  background: #8e57f7 !important;
+  color:white !important;
+  border: 2px solid transparent !important;
+}
