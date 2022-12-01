@@ -1,6 +1,9 @@
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import Head from 'next/head'
 import Image from 'next/image'
+import CategoryChart from '../components/chart/category'
+import Purchased from '../components/chart/purchased'
+import SpendingChart from '../components/chart/spending'
 import Navbar from '../components/navbar/navbar'
 import Welcome from '../components/welcome/welcome'
 import styles from '../styles/Home.module.css'
@@ -20,11 +23,15 @@ export default function Home() {
           <Navbar/>
           <Welcome/>
           <div className='row'>
-            <div className='col-lg-3 col-md-4 col-sm-6'>
+            <div className='col-lg-3 col-md-3 col-sm-6'>
               <Highlight/>
             </div>
-            <div className='col-lg-9 col-md-8 col-sm-6'>
-
+            <div className='col-lg-5 col-md-3 col-sm-6'>
+              <SpendingChart/>
+              <CategoryChart/>
+            </div>
+            <div className='col-lg-4 col-md-6 col-sm-12'>
+              <Purchased/>
             </div>
           </div>
         </main>

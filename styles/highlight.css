@@ -7,6 +7,24 @@
     position: relative;
     padding: 12px;
 }
+.chart-highlight{
+    background: #191a1b;
+    height: 36vh;
+    min-height: 120px;
+    border-radius: 14px;
+    margin-top: 20px;
+    position: relative;
+    padding: 12px;
+}
+.table-highlight{
+    background: #191a1b;
+    height: 80vh;
+    min-height: 120px;
+    border-radius: 14px;
+    margin-top: 20px;
+    position: relative;
+    padding: 12px;
+}
 .box-main-text{
     position: absolute;
     bottom: 24px;
