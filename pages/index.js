@@ -23,10 +23,10 @@ export default function Home() {
           <Navbar/>
           <Welcome/>
           <div className='row'>
-            <div className='col-lg-3 col-md-3 col-sm-6'>
+            <div className='col-lg-3 col-md-6 col-sm-6'>
               <Highlight/>
             </div>
-            <div className='col-lg-5 col-md-3 col-sm-6'>
+            <div className='col-lg-5 col-md-6 col-sm-6'>
               <SpendingChart/>
               <CategoryChart/>
             </div>

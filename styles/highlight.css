@@ -16,15 +16,67 @@
     position: relative;
     padding: 12px;
 }
+
 .table-highlight{
     background: #191a1b;
-    height: 80vh;
+    height: 75vh;
     min-height: 120px;
     border-radius: 14px;
     margin-top: 20px;
     position: relative;
     padding: 12px;
 }
+.purchased-item-holder{
+    height: 95.5%;
+    overflow: auto;
+    margin-top: 15px;
+}
+.datechip{
+    width: 110px;
+    border-radius: 10px;
+    background: #292735;
+    padding: 4px;
+    text-align: center;
+    margin:6px;
+    display: block;
+    margin-inline: auto;
+    font-size: 12.5px;
+}
+.purchased-box{
+    padding: 6px;
+    border-radius: 6x;
+    font-size: 13px !important;
+    position: relative;
+    cursor: pointer;
+    margin-bottom: 15px;
+    transition: 0.4s;
+}
+.purchased-box:hover{
+    background: #8e57f7;
+}
+.purchased-box p{
+    font-size: 12px;
+}
+.purchased-price{
+    position: absolute;
+    right: 20px !important;
+    bottom: 20px !important;
+}
+.result_purchased-box{
+    position: absolute;
+    bottom: -15px;
+    right: 20px;
+    background: #8e57f7;
+    padding: 2px 12px;
+    border-radius: 10px;
+}
+.result_purchased-box a{
+    font-size: 12px;
+}
+.result_purchased-box h6{
+    font-size: 16px;
+}
+
 .box-main-text{
     position: absolute;
     bottom: 24px;
@@ -46,4 +98,8 @@
     right: 5px;
     top: 0;
     color:#8e57f7 !important;
+}
+.mixed-chart{
+    max-width: 50vh !important;
+    min-width: 40vh !important;
 }

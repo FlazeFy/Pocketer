@@ -21,19 +21,19 @@ class CategoryChart extends Component {
   render() {
     return (
         <div className="chart-highlight">
-            <h6>Spending by Category</h6>
-            <button className="btn btn-transparent box-setting" title="Setting"><FontAwesomeIcon icon={faEllipsisVertical} width="4.5px"/></button>
-            <div className="SpendingChart me-4">
-                <div className="row">
-                    <div className="mixed-chart">
-                        <Chart
-                        options={this.state.options}
-                        series={this.state.series}
-                        type="donut"/>
-                    </div>
-                </div>
-            </div>
-            <button className="btn btn-outline-more box-more" title="See more"><FontAwesomeIcon icon={faChevronRight} width="14px"/></button>
+          <h6>Spending by Category</h6>
+          <button className="btn btn-transparent box-setting" title="Setting"><FontAwesomeIcon icon={faEllipsisVertical} width="4.5px"/></button>
+          <div className="SpendingChart me-4">
+              <div className="row">
+                  <div className="mixed-chart">
+                      <Chart
+                      options={this.state.options}
+                      series={this.state.series}
+                      type="donut"/>
+                  </div>
+              </div>
+          </div>
+          <button className="btn btn-outline-more box-more" title="See more"><FontAwesomeIcon icon={faChevronRight} width="14px"/></button>
         </div>
     );
   }

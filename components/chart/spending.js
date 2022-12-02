@@ -40,7 +40,8 @@ class SpendingChart extends Component {
                         <Chart
                         options={this.state.options}
                         series={this.state.series}
-                        type="line"/>
+                        type="line"
+                        />
                     </div>
                 </div>
             </div>

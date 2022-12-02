@@ -28,6 +28,19 @@ a {
     color: white;
   }
 }
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #292735;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb, ::-webkit-scrollbar-thumb:hover {
+  background: #8e57f7;
+}
 
 /*Button*/
 .btn-outline-success{
@@ -61,4 +74,22 @@ a {
   background: #8e57f7 !important;
   color:white !important;
   border: 2px solid transparent !important;
+}
+.btn-add-item{
+  background: #00bb8c !important;
+  width: 50px;
+  height: 50px;
+  border-radius: 100% !important;
+  position: absolute;
+  color: white !important;
+  right: -25px;
+}
+.btn-remove-item{
+  background: #FF5691 !important;
+  width: 50px;
+  height: 50px;
+  border-radius: 100% !important;
+  position: absolute;
+  color: white !important;
+  right: -25px;
 }
