@@ -11,11 +11,13 @@ a {
   text-decoration: none;
 }
 
-.form-control{
+.form-control, .form-select{
   background: #292735 !important;
   color: white !important;
 }
-
+textarea{
+  height: auto !important;
+}
 * {
   box-sizing: border-box;
 }
@@ -83,6 +85,10 @@ a {
   position: absolute;
   color: white !important;
   right: -25px;
+  transition: 0.4s !important;
+}
+.btn-add-item:hover, .btn-remove-item:hover{
+  transform: rotate(360deg);
 }
 .btn-remove-item{
   background: #FF5691 !important;
@@ -92,4 +98,23 @@ a {
   position: absolute;
   color: white !important;
   right: -25px;
+  transition: 0.4s !important;
+}
+
+/*Modal*/
+.btn-close-modal{
+  background: #FF5691 !important;
+  position: absolute;
+  color: white !important;
+  right: -25px;
+  top:10px;
+  transition: 0.4s !important;
+}
+.modal-body{
+  padding-right: 30px !important;
+}
+.modal-content{
+  background: #191A1B !important;
+  border: none;
+  position: relative;
 }
