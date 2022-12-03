@@ -12,6 +12,7 @@ export default function Purchased() {
     const [isLoaded, setIsLoaded] = useState(false);
     const [items, setItems] = useState([]);
     var total = 0;
+    var dateBefore = null;
 
     //Converter
     const data = Object.values(items);
@@ -31,6 +32,22 @@ export default function Purchased() {
         )
     },[])
 
+    //Datechip
+    function dateChip(datetime){
+        const result = new Date(datetime);
+        const now = new Date(Date.now());
+        const yesterday = new Date();
+        yesterday.setDate(yesterday.getDate() - 1);
+        
+        if(result.toDateString() === now.toDateString()){
+            return (<div className="datechip">Today</div>);
+        } else if(result.toDateString() === yesterday.toDateString()){
+            return (<div className="datechip">Yesterday</div>);
+        } else {
+            return (<div className="datechip">{result.getFullYear() + "/" + ("0" + (result.getMonth() + 1)).slice(-2) + "/" + ("0" + result.getDate()).slice(-2)}</div>);
+        }
+    }
+
     if (error) {
         return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
@@ -42,17 +59,35 @@ export default function Purchased() {
                     <h6>Purchased</h6>
                     <button className="btn btn-transparent box-setting" title="Setting"><FontAwesomeIcon icon={faEllipsisVertical} width="4.5px"/></button>
                     <div className="purchased-item-holder">
-                        <div className="datechip">Today</div>
+                        
                         {
+                            
                             data.map((val, i, index) => {
                                 total += val.purchased_price;
-                                return(
-                                    <div className="purchased-box" style={{borderLeft:"4px  solid #292735"}} key={i}>
-                                        <h6>{val.purchased_name}</h6>
-                                        <p><span style={{fontWeight:"500"}}>{val.purchased_category}</span>, {val.purchased_desc}</p>
-                                        <h6 className="purchased-price">Rp. {val.purchased_price}</h6>
-                                    </div>
-                                );
+                                const result = new Date(val.purchased_created_at);
+
+                                if(dateBefore == null || dateBefore != result.toDateString()){
+                                    dateBefore = result.toDateString();
+
+                                    return(
+                                        <>
+                                            {dateChip(val.purchased_created_at)}
+                                            <div className="purchased-box" style={{borderLeft:"4px  solid #292735"}} key={i}>
+                                                <h6>{val.purchased_name}</h6>
+                                                <p><span style={{fontWeight:"500"}}>{val.purchased_category}</span>, {val.purchased_desc}</p>
+                                                <h6 className="purchased-price">Rp. {val.purchased_price}</h6>
+                                            </div>
+                                        </>
+                                    );
+                                } else {
+                                    return(
+                                        <div className="purchased-box" style={{borderLeft:"4px  solid #292735"}} key={i}>
+                                            <h6>{val.purchased_name}</h6>
+                                            <p><span style={{fontWeight:"500"}}>{val.purchased_category}</span>, {val.purchased_desc}</p>
+                                            <h6 className="purchased-price">Rp. {val.purchased_price}</h6>
+                                        </div>
+                                    );
+                                }                            
                             })
                         }
                     </div>
