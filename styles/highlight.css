@@ -52,6 +52,10 @@
     cursor: pointer;
     margin-bottom: 15px;
     transition: 0.4s;
+    width: 98%;
+    text-align: start;
+    background: transparent;
+    border: none;
 }
 .purchased-box:hover{
     background: #8e57f7;

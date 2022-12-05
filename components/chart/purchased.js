@@ -43,26 +43,70 @@ export default function Purchased() {
         )
     },[])
 
-    async function handleSubmit(e) {
+    async function addPurchased(e) {
         //e.preventDefault();
         const postData = async () => {
-          const purchased = {
-            purchased_name: purchased_name,
-            purchased_desc: purchased_desc,
-            purchased_category: purchased_category,
-            purchased_price: purchased_price,
-          };
-    
-          const response = await fetch("http://localhost:3000/api/purchased", {
-            method: "POST",
-            body: JSON.stringify(purchased)
-          });
-          return response.json();
+            const purchased = {
+                purchased_name: purchased_name,
+                purchased_desc: purchased_desc,
+                purchased_category: purchased_category,
+                purchased_price: purchased_price
+            };
+        
+            const response = await fetch("http://localhost:3000/api/purchased", {
+                method: "POST",
+                body: JSON.stringify(purchased)
+            });
+            return response.json();
         };
         postData().then((purchased) => {
-          alert(purchased.msg);
+            alert(purchased.msg);
         });
-      }
+    }
+
+    async function editPurchased(val) {
+        //e.preventDefault();
+        const putData = async () => {
+            //Initial variable
+            var pName;
+            var pDesc;
+            var pPrice;
+
+            //Empty validator
+            if(purchased_name != null && purchased_name != ""){
+                pName = purchased_name
+            } else {
+                pName = val.purchased_name
+            }
+            if(purchased_desc != null && purchased_desc != ""){
+                pDesc = purchased_desc
+            } else {
+                pDesc = val.purchased_desc
+            }
+            if(purchased_price != null && purchased_price != 0){
+                pPrice = purchased_price
+            } else {
+                pPrice = val.purchased_price
+            }
+
+            const purchased = {
+                id: val.id,
+                purchased_name: pName,
+                purchased_desc: pDesc,
+                purchased_category: purchased_category,
+                purchased_price: pPrice
+            };
+        
+            const response = await fetch("http://localhost:3000/api/purchased", {
+                method: "PUT",
+                body: JSON.stringify(purchased)
+            });
+            return response.json();
+        };
+        putData().then((purchased) => {
+            alert(purchased.msg);
+        });
+    }
 
     //Datechip
     function dateChip(datetime){
@@ -78,6 +122,51 @@ export default function Purchased() {
         } else {
             return (<div className="datechip">{result.getFullYear() + "/" + ("0" + (result.getMonth() + 1)).slice(-2) + "/" + ("0" + result.getDate()).slice(-2)}</div>);
         }
+    }
+
+    //Edit modal
+    function modalEdit(val){
+        const modalId = "editPurchased"+val.id;
+
+        return (
+            <div className="modal fade" id={modalId} tabIndex="-1" aria-labelledby="addPurchasedLabel" aria-hidden="true">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-body">
+                            <button className="btn btn-close-modal" title="Close" data-bs-dismiss="modal"><FontAwesomeIcon icon={faClose} width="14.5px"/></button>
+                            <h6>Edit Purchased Item</h6>
+                            <div className="form-floating mt-3">
+                                <input type="text" className="form-control" id="floatingInput" onChange={(e)=> setPurchasedName(e.target.value)} defaultValue={val.purchased_name}></input>
+                                <label htmlFor="floatingInput">Item Name</label>
+                            </div>
+                            <div className="form-floating mt-3">
+                                <textarea className="form-control" id="floatingInput" rows="3" onChange={(e)=> setPurchasedDesc(e.target.value)} defaultValue={val.purchased_desc}></textarea>
+                                <label htmlFor="floatingInput">Description (Optional)</label>
+                            </div>
+                            <div className="row mt-3">
+                                <div className="col">
+                                    <div className="form-floating">
+                                        <select className="form-select" id="floatingSelect" aria-label="Floating label select example" onChange={(e)=> setPurchasedCategory(e.target.value)}>
+                                            <option value="Food & Drink">Food & Drink</option>
+                                            <option value="Transport">Transport</option>
+                                            <option value="Home Essentials">Home Essentials</option>
+                                        </select>
+                                        <label htmlFor="floatingInput">Item Category</label>
+                                    </div>
+                                </div>
+                                <div className="col">
+                                    <div className="form-floating">
+                                        <input type="number" className="form-control" id="floatingInput" defaultValue={val.purchased_price} min="1" onChange={(e)=> setPurchasedPrice(e.target.value)}></input>
+                                        <label htmlFor="floatingInput">Item Price (Rp.)</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <button className="btn btn-add-item" title="Submit" style={{ bottom: "20px", right:"-30px"}} onClick={(e) => editPurchased(val)}><FontAwesomeIcon icon={faFloppyDisk} width="16px"/></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
     }
 
     if (error) {
@@ -96,6 +185,7 @@ export default function Purchased() {
                             data.map((val, i, index) => {
                                 const result = new Date(val.purchased_created_at);
                                 const now = new Date(Date.now());
+                                const modalCall = "#editPurchased"+val.id;
                                 
                                 if(result.toDateString() == now.toDateString()){
                                     total += val.purchased_price;
@@ -107,20 +197,24 @@ export default function Purchased() {
                                     return(
                                         <>
                                             {dateChip(val.purchased_created_at)}
-                                            <div className="purchased-box" style={{borderLeft:"4px  solid #292735"}} key={i}>
+                                            <button className="purchased-box" style={{borderLeft:"4px  solid #292735"}} key={i} data-bs-toggle="modal" data-bs-target={modalCall}>
                                                 <h6>{val.purchased_name}</h6>
                                                 <p><span style={{fontWeight:"500"}}>{val.purchased_category}</span>, {val.purchased_desc}</p>
                                                 <h6 className="purchased-price">Rp. {val.purchased_price}</h6>
-                                            </div>
+                                            </button>
+                                            {modalEdit(val)}
                                         </>
                                     );
                                 } else {
                                     return(
-                                        <div className="purchased-box" style={{borderLeft:"4px  solid #292735"}} key={i}>
-                                            <h6>{val.purchased_name}</h6>
-                                            <p><span style={{fontWeight:"500"}}>{val.purchased_category}</span>, {val.purchased_desc}</p>
-                                            <h6 className="purchased-price">Rp. {val.purchased_price}</h6>
-                                        </div>
+                                        <>
+                                            <button className="purchased-box" style={{borderLeft:"4px  solid #292735"}} key={i} data-bs-toggle="modal" data-bs-target={modalCall}>
+                                                <h6>{val.purchased_name}</h6>
+                                                <p><span style={{fontWeight:"500"}}>{val.purchased_category}</span>, {val.purchased_desc}</p>
+                                                <h6 className="purchased-price">Rp. {val.purchased_price}</h6>
+                                            </button>
+                                            {modalEdit(val)}
+                                        </>
                                     );
                                 }                            
                             })
@@ -167,7 +261,7 @@ export default function Purchased() {
                                         </div>
                                     </div>
                                 </div>
-                                <button className="btn btn-add-item" title="Submit" style={{ bottom: "20px", right:"-30px"}} onClick={(e) => handleSubmit()}><FontAwesomeIcon icon={faFloppyDisk} width="16px"/></button>
+                                <button className="btn btn-add-item" title="Submit" style={{ bottom: "20px", right:"-30px"}} onClick={(e) => addPurchased()}><FontAwesomeIcon icon={faFloppyDisk} width="16px"/></button>
                             </div>
                         </div>
                     </div>
