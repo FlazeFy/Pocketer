@@ -102,6 +102,17 @@ textarea{
   right: -25px;
   transition: 0.4s !important;
 }
+.btn-scroll-purchased{
+  background: #8e57f7 !important;
+  box-shadow: rgba(0, 0, 0, 0.55) 0px 4.5px 10px;
+  width: 50px;
+  height: 50px;
+  border-radius: 100% !important;
+  position: absolute;
+  color: white !important;
+  right: -25px;
+  transition: 0.4s !important;
+}
 
 /*Modal*/
 .btn-close-modal{

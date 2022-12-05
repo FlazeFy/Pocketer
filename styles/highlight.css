@@ -30,6 +30,7 @@
     height: 95.5%;
     overflow: auto;
     margin-top: 15px;
+    padding-bottom:35px;
 }
 .datechip{
     width: 110px;
@@ -44,6 +45,7 @@
 }
 .purchased-box{
     padding: 6px;
+    margin-right: 5px;
     border-radius: 6x;
     font-size: 13px !important;
     position: relative;
@@ -59,15 +61,15 @@
 }
 .purchased-price{
     position: absolute;
-    right: 20px !important;
+    right: 10px !important;
     bottom: 20px !important;
 }
 .result_purchased-box{
     position: absolute;
     bottom: -15px;
-    right: 20px;
+    right: 30px;
     background: #8e57f7;
-    padding: 2px 12px;
+    padding: 2px 20px;
     border-radius: 10px;
 }
 .result_purchased-box a{

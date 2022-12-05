@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 //Font awesome icon
 import { library } from "@fortawesome/fontawesome-svg-core"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faClose, faEllipsisVertical, faFloppyDisk, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons"
+import { faChevronUp, faClose, faEllipsisVertical, faFloppyDisk, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons"
 import { } from "@fortawesome/free-regular-svg-icons"
 
 export default function Purchased() {
@@ -11,6 +11,13 @@ export default function Purchased() {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [items, setItems] = useState([]);
+
+    //Form input
+    const [purchased_name, setPurchasedName] = useState("");
+    const [purchased_desc, setPurchasedDesc] = useState("");
+    const [purchased_category, setPurchasedCategory] = useState("Food & Drink");
+    const [purchased_price, setPurchasedPrice] = useState();
+
     var total = 0;
     var dateBefore = null;
 
@@ -18,7 +25,11 @@ export default function Purchased() {
     const data = Object.values(items);
 
     useEffect(() => {
-        fetch("http://localhost:3000/api/purchased")
+        fetch("http://localhost:3000/api/purchased",
+            {
+                method: "GET"
+            }
+        )
         .then(res => res.json())
             .then(
             (result) => {
@@ -31,6 +42,27 @@ export default function Purchased() {
             }
         )
     },[])
+
+    async function handleSubmit(e) {
+        //e.preventDefault();
+        const postData = async () => {
+          const purchased = {
+            purchased_name: purchased_name,
+            purchased_desc: purchased_desc,
+            purchased_category: purchased_category,
+            purchased_price: purchased_price,
+          };
+    
+          const response = await fetch("http://localhost:3000/api/purchased", {
+            method: "POST",
+            body: JSON.stringify(purchased)
+          });
+          return response.json();
+        };
+        postData().then((purchased) => {
+          alert(purchased.msg);
+        });
+      }
 
     //Datechip
     function dateChip(datetime){
@@ -59,12 +91,15 @@ export default function Purchased() {
                     <h6>Purchased</h6>
                     <button className="btn btn-transparent box-setting" title="Setting"><FontAwesomeIcon icon={faEllipsisVertical} width="4.5px"/></button>
                     <div className="purchased-item-holder">
-                        
                         {
                             
                             data.map((val, i, index) => {
-                                total += val.purchased_price;
                                 const result = new Date(val.purchased_created_at);
+                                const now = new Date(Date.now());
+                                
+                                if(result.toDateString() == now.toDateString()){
+                                    total += val.purchased_price;
+                                }
 
                                 if(dateBefore == null || dateBefore != result.toDateString()){
                                     dateBefore = result.toDateString();
@@ -95,6 +130,7 @@ export default function Purchased() {
                         <a>Today</a>
                         <h6>Rp. {total}</h6>
                     </div>
+                    <button className="btn btn-scroll-purchased" title="Back to the top" style={{ bottom: "180px"}}><FontAwesomeIcon icon={faChevronUp} width="18.5px"/></button>
                     <button className="btn btn-remove-item" title="Remove All purchase" style={{ bottom: "120px"}}><FontAwesomeIcon icon={faTrash} width="14.5px"/></button>
                     <button className="btn btn-add-item" title="Add purchase" style={{ bottom: "60px"}} data-bs-toggle="modal" data-bs-target="#addPurchased"
                         ><FontAwesomeIcon icon={faPlus} width="14.5px"/></button>
@@ -106,32 +142,32 @@ export default function Purchased() {
                                 <button className="btn btn-close-modal" title="Close" data-bs-dismiss="modal"><FontAwesomeIcon icon={faClose} width="14.5px"/></button>
                                 <h6>Add Purchased Item</h6>
                                 <div className="form-floating mt-3">
-                                    <input type="text" className="form-control" id="floatingInput"></input>
+                                    <input type="text" className="form-control" id="floatingInput" onChange={(e)=> setPurchasedName(e.target.value)}></input>
                                     <label htmlFor="floatingInput">Item Name</label>
                                 </div>
                                 <div className="form-floating mt-3">
-                                    <textarea className="form-control" id="floatingInput" rows="3"></textarea>
+                                    <textarea className="form-control" id="floatingInput" rows="3" onChange={(e)=> setPurchasedDesc(e.target.value)}></textarea>
                                     <label htmlFor="floatingInput">Description (Optional)</label>
                                 </div>
                                 <div className="row mt-3">
                                     <div className="col">
                                         <div className="form-floating">
-                                            <select className="form-select" id="floatingSelect" aria-label="Floating label select example">
-                                                <option value="1">Food & Drink</option>
-                                                <option value="2">Transport</option>
-                                                <option value="3">Home Essentials</option>
+                                            <select className="form-select" id="floatingSelect" aria-label="Floating label select example" onChange={(e)=> setPurchasedCategory(e.target.value)}>
+                                                <option value="Food & Drink">Food & Drink</option>
+                                                <option value="Transport">Transport</option>
+                                                <option value="Home Essentials">Home Essentials</option>
                                             </select>
                                             <label htmlFor="floatingInput">Item Category</label>
                                         </div>
                                     </div>
                                     <div className="col">
                                         <div className="form-floating">
-                                            <input type="number" className="form-control" id="floatingInput" min="1"></input>
+                                            <input type="number" className="form-control" id="floatingInput" min="1" onChange={(e)=> setPurchasedPrice(e.target.value)}></input>
                                             <label htmlFor="floatingInput">Item Price (Rp.)</label>
                                         </div>
                                     </div>
                                 </div>
-                                <button className="btn btn-add-item" title="Submit" style={{ bottom: "20px", right:"-30px"}} type="submit"><FontAwesomeIcon icon={faFloppyDisk} width="16px"/></button>
+                                <button className="btn btn-add-item" title="Submit" style={{ bottom: "20px", right:"-30px"}} onClick={(e) => handleSubmit()}><FontAwesomeIcon icon={faFloppyDisk} width="16px"/></button>
                             </div>
                         </div>
                     </div>
