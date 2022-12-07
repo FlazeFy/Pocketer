@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import React, { Component } from "react";
+import React from "react";
 import dynamic from 'next/dynamic';
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 //Font awesome icon
@@ -30,7 +30,7 @@ export default function SpendingChart() {
   }
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/spending")
+    fetch("http://localhost:3000/api/spending/weekly")
     .then(res => res.json())
       .then(
       (result) => {
@@ -51,7 +51,7 @@ export default function SpendingChart() {
         const day2 = new Date(e2.date);
         const month = day2.toLocaleString('default', { month: 'short' }); 
 
-        //Same day validator
+        //Same day validator  
         if(e1 == month + " " + ("0" + day2.getDate()).slice(-2)){
           seriesData.push(e2.total);
           check = true;
@@ -62,7 +62,7 @@ export default function SpendingChart() {
         seriesData.push("0");
       }
     });
-    // console.log(seriesData);
+    console.log(seriesData);
     return seriesData;
   }
 
@@ -90,9 +90,9 @@ export default function SpendingChart() {
           <div className="row">
               <div className="mixed-chart">
                   <Chart
-                  options={chart.options}
-                  series={chart.series}
-                  type="line"
+                    options={chart.options}
+                    series={chart.series}
+                    type="line"
                   />
               </div>
           </div>

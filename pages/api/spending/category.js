@@ -8,10 +8,9 @@ export default async function handler(req, res) {
         user: "root",
     });
 
-  
     try {
-        const query = "SELECT CAST(purchased_created_at AS DATE) as date, SUM(purchased_price) AS total "+
-            "FROM `purchased` WHERE user_id = 1 GROUP BY CAST(purchased_created_at AS DATE) ORDER BY date DESC LIMIT 7";
+        const query = "SELECT purchased_category, SUM(purchased_price) as total "+
+            "FROM `purchased` GROUP BY purchased_category";
         const values = [];
         const [data] = await dbconnection.execute(query, values);
         dbconnection.end();
@@ -21,5 +20,4 @@ export default async function handler(req, res) {
     } catch (error) {
         console.log("Fetch data error");
     }
-  
 }

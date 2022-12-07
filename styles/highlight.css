@@ -109,3 +109,9 @@
     max-width: 50vh !important;
     min-width: 40vh !important;
 }
+
+
+/*Apexchart*/
+.apexcharts-legend-text{
+    color:white !important;
+}
