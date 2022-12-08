@@ -43,7 +43,7 @@
     margin-inline: auto;
     font-size: 12.5px;
 }
-.purchased-box{
+.purchased-box, .income-box{
     padding: 6px;
     margin-right: 5px;
     border-radius: 6x;
@@ -57,18 +57,18 @@
     background: transparent;
     border: none;
 }
-.purchased-box:hover{
+.purchased-box:hover, .income-box:hover{
     background: #8e57f7;
 }
-.purchased-box p{
+.purchased-box p, .income-box p{
     font-size: 12px;
 }
-.purchased-price{
+.purchased-price, .income-price{
     position: absolute;
     right: 10px !important;
     bottom: 20px !important;
 }
-.result_purchased-box{
+.result_purchased-box, .result_income-box{
     position: absolute;
     bottom: -15px;
     right: 30px;
@@ -76,10 +76,10 @@
     padding: 2px 20px;
     border-radius: 10px;
 }
-.result_purchased-box a{
+.result_purchased-box a, .result_income-box a{
     font-size: 12px;
 }
-.result_purchased-box h6{
+.result_purchased-box h6, .result_income-box h6{
     font-size: 16px;
 }
 

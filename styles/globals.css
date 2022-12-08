@@ -102,7 +102,7 @@ textarea{
   right: -25px;
   transition: 0.4s !important;
 }
-.btn-scroll-purchased{
+.btn-scroll-purchased, .btn-scroll-income{
   background: #8e57f7 !important;
   box-shadow: rgba(0, 0, 0, 0.55) 0px 4.5px 10px;
   width: 50px;

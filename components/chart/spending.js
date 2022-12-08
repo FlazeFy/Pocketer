@@ -62,7 +62,7 @@ export default function SpendingChart() {
         seriesData.push("0");
       }
     });
-    console.log(seriesData);
+    // console.log(seriesData);
     return seriesData;
   }
 

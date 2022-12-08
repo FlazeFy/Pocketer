@@ -2,12 +2,13 @@ import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import Head from 'next/head'
 import Image from 'next/image'
 import CategoryChart from '../components/chart/category'
-import Purchased from '../components/chart/purchased'
+import Purchased from '../components/manage/purchased'
 import SpendingChart from '../components/chart/spending'
 import Navbar from '../components/navbar/navbar'
 import Welcome from '../components/welcome/welcome'
 import styles from '../styles/Home.module.css'
 import Highlight from './mainmenu/dashboard'
+import Income from '../components/manage/income'
 
 export default function Home() {
   return (
@@ -22,7 +23,7 @@ export default function Home() {
         <main className={styles.main}>
           <Navbar/>
           <Welcome/>
-          <div className='row'>
+          <div className='row pb-5'>
             <div className='col-lg-3 col-md-6 col-sm-6'>
               <Highlight/>
             </div>
@@ -32,6 +33,15 @@ export default function Home() {
             </div>
             <div className='col-lg-4 col-md-6 col-sm-12'>
               <Purchased/>
+            </div>
+            <div className='col-lg-3 col-md-6 col-sm-6'>
+             
+            </div>
+            <div className='col-lg-5 col-md-6 col-sm-6'>
+              
+            </div>
+            <div className='col-lg-4 col-md-6 col-sm-12'>
+              <Income/>
             </div>
           </div>
         </main>

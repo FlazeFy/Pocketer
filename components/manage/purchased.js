@@ -214,7 +214,7 @@ export default function Purchased() {
                                     dateBefore = result.toDateString();
 
                                     return(
-                                        <>
+                                        <div key={i}>
                                             {dateChip(val.purchased_created_at)}
                                             <button className="purchased-box" style={{borderLeft:"4px  solid #292735"}} key={i} data-bs-toggle="modal" data-bs-target={modalCall}>
                                                 <h6>{val.purchased_name}</h6>
@@ -222,18 +222,18 @@ export default function Purchased() {
                                                 <h6 className="purchased-price">Rp. {val.purchased_price}</h6>
                                             </button>
                                             {modalEdit(val)}
-                                        </>
+                                        </div>
                                     );
                                 } else {
                                     return(
-                                        <>
+                                        <div key={i}>
                                             <button className="purchased-box" style={{borderLeft:"4px  solid #292735"}} key={i} data-bs-toggle="modal" data-bs-target={modalCall}>
                                                 <h6>{val.purchased_name}</h6>
                                                 <p><span style={{fontWeight:"500"}}>{val.purchased_category}</span>, {val.purchased_desc}</p>
                                                 <h6 className="purchased-price">Rp. {val.purchased_price}</h6>
                                             </button>
                                             {modalEdit(val)}
-                                        </>
+                                        </div>
                                     );
                                 }                            
                             })

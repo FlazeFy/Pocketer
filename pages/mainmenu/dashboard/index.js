@@ -43,7 +43,7 @@ export default function Highlight() {
                 data.map((val, i, index) => {
 
                     return(
-                        <div className="box-highlight">
+                        <div className="box-highlight" key={i}>
                             <h6><FontAwesomeIcon icon={faDollar} width="13px"/> &nbsp;&nbsp;Spending</h6>
                             <button className="btn btn-transparent box-setting" title="Setting"><FontAwesomeIcon icon={faEllipsisVertical} width="4.5px"/></button>
                             <h5 className="box-main-text">Rp. {val.total}</h5>
