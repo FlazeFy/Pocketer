@@ -34,6 +34,30 @@ export default async function handler(req, res) {
         console.log("Post data error");
       }
       break;
+    case 'PUT':
+      try {
+        const body = JSON.parse(req.body)
+        const id = body.id
+        const income_source = body.income_source
+        const income_desc = body.income_desc
+        const income_category = body.income_category
+        const income_price = body.income_price
+        const updated_at = new Date()
+        
+        dbconnection.query("UPDATE " +
+          "income SET income_source = ?, income_desc = ?, income_category = ?, income_price = ?, income_updated_at = ? " +
+          "WHERE id = ? ", 
+          [income_source, income_desc, income_category, income_price, updated_at, id], (error, rows, fields) => {
+          if (error) {
+              res.status(400).json({ msg: "Error :" + error })
+          } else {
+              res.status(200).json({ msg: "Update Item Success",status:200, data: rows })
+          }
+        })
+      } catch (error) {
+        console.log("Put data error");
+      }
+    break;
     default: 
       try {
         const query = "SELECT * FROM `income` WHERE user_id = 1 ORDER BY income_created_at DESC";
