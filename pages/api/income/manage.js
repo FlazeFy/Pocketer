@@ -10,7 +10,29 @@ export default async function handler(req, res) {
 
   switch (req.method) {
     case 'POST':
-      
+      try {
+        const body = JSON.parse(req.body)
+        const user_id = 1 //for now
+        const income_source = body.income_source
+        const income_desc = body.income_desc
+        const income_category = body.income_category
+        const income_price = body.income_price
+        const created_at = new Date()
+        const updated_at = new Date()
+        
+        dbconnection.query("INSERT INTO " +
+          "income (id, user_id, income_source, income_desc, income_category, income_price, income_created_at, income_updated_at) " +
+          "VALUES (?, ?, ?, ?, ?, ?, ?, ?)", 
+          [null, user_id, income_source, income_desc, income_category, income_price, created_at, updated_at], (error, rows, fields) => {
+          if (error) {
+              res.status(400).json({ msg: "Error :" + error })
+          } else {
+              res.status(200).json({ msg: "Insert Item Success",status:200, data: rows })
+          }
+        })
+      } catch (error) {
+        console.log("Post data error");
+      }
       break;
     default: 
       try {
