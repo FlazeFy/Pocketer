@@ -113,6 +113,17 @@ textarea{
   right: -25px;
   transition: 0.4s !important;
 }
+.btn-link-danger{
+  text-decoration: none;
+  color: #FF5691 !important;
+  cursor: pointer;
+  border-radius: 6px;
+  padding: 5px;
+}
+.btn-link-danger:hover{
+  background: #FF5691 !important;
+  color:white !important;
+}
 
 /*Modal*/
 .btn-close-modal{

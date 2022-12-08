@@ -70,6 +70,7 @@ export default function SpendingChart() {
                     options={chart.options}
                     series={chart.series}
                     type="donut"
+                    width="370"
                   />
               </div>
           </div>

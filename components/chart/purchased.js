@@ -64,6 +64,24 @@ export default function Purchased() {
         });
     }
 
+    async function removePurchased(e, id) {
+        //e.preventDefault();
+        const deleteData = async () => {
+            const purchased = {
+                id: id
+            };
+        
+            const response = await fetch("http://localhost:3000/api/purchased", {
+                method: "DELETE",
+                body: JSON.stringify(purchased)
+            });
+            return response.json();
+        };
+        deleteData().then((purchased) => {
+            alert(purchased.msg);
+        });
+    }
+
     async function editPurchased(val) {
         //e.preventDefault();
         const putData = async () => {
@@ -143,7 +161,7 @@ export default function Purchased() {
                                 <textarea className="form-control" id="floatingInput" rows="3" onChange={(e)=> setPurchasedDesc(e.target.value)} defaultValue={val.purchased_desc}></textarea>
                                 <label htmlFor="floatingInput">Description (Optional)</label>
                             </div>
-                            <div className="row mt-3">
+                            <div className="row my-3">
                                 <div className="col">
                                     <div className="form-floating">
                                         <select className="form-select" id="floatingSelect" aria-label="Floating label select example" onChange={(e)=> setPurchasedCategory(e.target.value)}>
@@ -161,6 +179,7 @@ export default function Purchased() {
                                     </div>
                                 </div>
                             </div>
+                            <a className="btn-link-danger" onClick={(e) => removePurchased(e, val.id)}><FontAwesomeIcon icon={faTrash} width="13.5px"/> Delete This Item</a>
                             <button className="btn btn-add-item" title="Submit" style={{ bottom: "20px", right:"-30px"}} onClick={(e) => editPurchased(val)}><FontAwesomeIcon icon={faFloppyDisk} width="16px"/></button>
                         </div>
                     </div>

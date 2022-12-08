@@ -58,6 +58,25 @@ export default async function handler(req, res) {
         console.log("Put data error");
       }
       break;
+    case 'DELETE':
+      try {
+        const body = JSON.parse(req.body)
+        const id = body.id
+        
+        dbconnection.query("DELETE " +
+          "FROM `purchased`" +
+          "WHERE id = ? ", 
+          [id], (error, rows, fields) => {
+          if (error) {
+              res.status(400).json({ msg: "Error :" + error })
+          } else {
+              res.status(200).json({ msg: "Delete Item Success",status:200, data: rows })
+          }
+        })
+      } catch (error) {
+        console.log("Put data error");
+      }
+      break;
     default: 
       try {
         const query = "SELECT * FROM `purchased` WHERE user_id = 1 ORDER BY purchased_created_at DESC";
