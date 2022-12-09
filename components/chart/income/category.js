@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronRight, faEllipsisVertical } from "@fortawesome/free-solid-svg-icons"
 
 
-export default function SpendingChart() {
+export default function IncomeCategoryChart() {
   //Initial variable
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -22,7 +22,7 @@ export default function SpendingChart() {
   const data = Object.values(items);
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/spending/category")
+    fetch("http://localhost:3000/api/income/category")
     .then(res => res.json())
       .then(
       (result) => {
@@ -47,7 +47,7 @@ export default function SpendingChart() {
   function getCategory(val){
     var catData = [];
     val.forEach(e => { 
-      catData.push(e.purchased_category);
+      catData.push(e.income_category);
     });
     return catData;
   }
@@ -61,7 +61,7 @@ export default function SpendingChart() {
 
   return (
     <div className="chart-highlight">
-      <h6>Spending by Category</h6>
+      <h6>Income by Category</h6>
       <button className="btn btn-transparent box-setting" title="Setting"><FontAwesomeIcon icon={faEllipsisVertical} width="4.5px"/></button>
       <div className="SpendingChart me-4">
           <div className="row">
@@ -70,7 +70,7 @@ export default function SpendingChart() {
                     options={chart.options}
                     series={chart.series}
                     type="donut"
-                    width="370"
+                    width="350"
                   />
               </div>
           </div>

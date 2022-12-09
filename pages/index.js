@@ -1,14 +1,13 @@
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import Head from 'next/head'
-import Image from 'next/image'
-import CategoryChart from '../components/chart/category'
 import Purchased from '../components/manage/purchased'
-import SpendingChart from '../components/chart/spending'
 import Navbar from '../components/navbar/navbar'
 import Welcome from '../components/welcome/welcome'
 import styles from '../styles/Home.module.css'
 import Highlight from './mainmenu/dashboard'
 import Income from '../components/manage/income'
+import IncomeCategoryChart from '../components/chart/income/category'
+import SpendingCategoryChart from '../components/chart/spending/category'
+import SpendingLineChart from '../components/chart/spending/spending'
 
 export default function Home() {
   return (
@@ -28,8 +27,8 @@ export default function Home() {
               <Highlight/>
             </div>
             <div className='col-lg-5 col-md-6 col-sm-6'>
-              <SpendingChart/>
-              <CategoryChart/>
+              <SpendingLineChart/>
+              <SpendingCategoryChart/>
             </div>
             <div className='col-lg-4 col-md-6 col-sm-12'>
               <Purchased/>
@@ -38,7 +37,7 @@ export default function Home() {
              
             </div>
             <div className='col-lg-5 col-md-6 col-sm-6'>
-              
+              <IncomeCategoryChart/>
             </div>
             <div className='col-lg-4 col-md-6 col-sm-12'>
               <Income/>

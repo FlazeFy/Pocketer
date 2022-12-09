@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronRight, faEllipsisVertical } from "@fortawesome/free-solid-svg-icons"
 
 
-export default function SpendingChart() {
+export default function SpendingLineChart() {
   //Initial variable
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
