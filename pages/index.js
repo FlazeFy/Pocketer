@@ -8,6 +8,7 @@ import Income from '../components/manage/income'
 import IncomeCategoryChart from '../components/chart/income/category'
 import SpendingCategoryChart from '../components/chart/spending/category'
 import SpendingLineChart from '../components/chart/spending/spending'
+import IncomeLineChart from '../components/chart/income/weekly'
 
 export default function Home() {
   return (
@@ -37,6 +38,7 @@ export default function Home() {
              
             </div>
             <div className='col-lg-5 col-md-6 col-sm-6'>
+              <IncomeLineChart/>
               <IncomeCategoryChart/>
             </div>
             <div className='col-lg-4 col-md-6 col-sm-12'>

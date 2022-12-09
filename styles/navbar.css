@@ -1,5 +1,9 @@
 .navbar.navbar-expand-lg.w-100{
-    background: transparent !important;
+    background: #141414 !important;
+    position: fixed;
+    z-index: 999;
+    max-width: 1120px; /*Check this*/
+    border-bottom: 1px solid #292735;
 }
 .navbar-brand{
     color:#8e57f7;
