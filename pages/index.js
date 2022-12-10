@@ -1,14 +1,7 @@
 import Head from 'next/head'
-import Purchased from '../components/manage/purchased'
-import Navbar from '../components/navbar/navbar'
 import Welcome from '../components/welcome/welcome'
 import styles from '../styles/Home.module.css'
-import Highlight from './mainmenu/dashboard'
-import Income from '../components/manage/income'
-import IncomeCategoryChart from '../components/chart/income/category'
-import SpendingCategoryChart from '../components/chart/spending/category'
-import SpendingLineChart from '../components/chart/spending/spending'
-import IncomeLineChart from '../components/chart/income/weekly'
+import Navbar from '../components/navbar/navbar'
 
 export default function Home() {
   return (
@@ -23,28 +16,7 @@ export default function Home() {
         <main className={styles.main}>
           <Navbar/>
           <Welcome/>
-          <div className='row pb-5'>
-            <div className='col-lg-3 col-md-6 col-sm-6'>
-              <Highlight/>
-            </div>
-            <div className='col-lg-5 col-md-6 col-sm-6'>
-              <SpendingLineChart/>
-              <SpendingCategoryChart/>
-            </div>
-            <div className='col-lg-4 col-md-6 col-sm-12'>
-              <Purchased/>
-            </div>
-            <div className='col-lg-3 col-md-6 col-sm-6'>
-             
-            </div>
-            <div className='col-lg-5 col-md-6 col-sm-6'>
-              <IncomeLineChart/>
-              <IncomeCategoryChart/>
-            </div>
-            <div className='col-lg-4 col-md-6 col-sm-12'>
-              <Income/>
-            </div>
-          </div>
+          
         </main>
       </div>
     </div>

@@ -21,10 +21,13 @@
     transition: 0.5s;
     border:2.5px solid transparent;
 }
-.navbar-nav li:hover{
+.navbar-nav li:hover, .nav-item.active{
     border-bottom: 2.5px solid #8e57f7;
     color:#8e57f7 !important;
 }
 .navbar-nav li:hover a{
     color:#8e57f7 !important;
+}
+a{
+    text-decoration: none !important;
 }
