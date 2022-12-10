@@ -129,6 +129,7 @@ export default function Purchased() {
     //Datechip
     function dateChip(datetime){
         const result = new Date(datetime);
+        const month = result.toLocaleString('default', { month: 'short' }); 
         const now = new Date(Date.now());
         const yesterday = new Date();
         yesterday.setDate(yesterday.getDate() - 1);
@@ -138,7 +139,7 @@ export default function Purchased() {
         } else if(result.toDateString() === yesterday.toDateString()){
             return (<div className="datechip">Yesterday</div>);
         } else {
-            return (<div className="datechip">{result.getFullYear() + "/" + ("0" + (result.getMonth() + 1)).slice(-2) + "/" + ("0" + result.getDate()).slice(-2)}</div>);
+            return (<div className="datechip">{("0" + result.getDate()).slice(-2) + " " + month + " " + result.getFullYear()}</div>);
         }
     }
 

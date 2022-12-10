@@ -111,6 +111,7 @@ export default function Income() {
     //Datechip
     function dateChip(datetime){
         const result = new Date(datetime);
+        const month = result.toLocaleString('default', { month: 'short' }); 
         const now = new Date(Date.now());
         const yesterday = new Date();
         yesterday.setDate(yesterday.getDate() - 1);
@@ -120,7 +121,7 @@ export default function Income() {
         } else if(result.toDateString() === yesterday.toDateString()){
             return (<div className="datechip">Yesterday</div>);
         } else {
-            return (<div className="datechip">{result.getFullYear() + "/" + ("0" + (result.getMonth() + 1)).slice(-2) + "/" + ("0" + result.getDate()).slice(-2)}</div>);
+            return (<div className="datechip">{("0" + result.getDate()).slice(-2) + " " + month + " " + result.getFullYear()}</div>);
         }
     }
 
@@ -197,7 +198,7 @@ export default function Income() {
                                     return(
                                         <div key={i}>
                                             {dateChip(val.income_created_at)}
-                                            <button className="income-box" style={{borderLeft:"4px  solid #292735"}} data-bs-toggle="modal" data-bs-target={modalCall}>
+                                            <button className="income-box" style={{borderLeft:"4px  solid #39523d"}} data-bs-toggle="modal" data-bs-target={modalCall}>
                                                 <h6>{val.income_source}</h6>
                                                 <p><span style={{fontWeight:"500"}}>{val.income_category}</span>, {val.income_desc}</p>
                                                 <h6 className="income-price">Rp. {val.income_price}</h6>
@@ -208,7 +209,7 @@ export default function Income() {
                                 } else {
                                     return(
                                         <div key={i}>
-                                            <button className="income-box" style={{borderLeft:"4px  solid #292735"}} data-bs-toggle="modal" data-bs-target={modalCall}>
+                                            <button className="income-box" style={{borderLeft:"4px  solid #39523d"}} data-bs-toggle="modal" data-bs-target={modalCall}>
                                                 <h6>{val.income_source}</h6>
                                                 <p><span style={{fontWeight:"500"}}>{val.income_category}</span>, {val.income_desc}</p>
                                                 <h6 className="income-price">Rp. {val.income_price}</h6>

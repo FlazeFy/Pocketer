@@ -57,8 +57,11 @@
     background: transparent;
     border: none;
 }
-.purchased-box:hover, .income-box:hover{
+.purchased-box:hover{
     background: #8e57f7;
+}
+.income-box:hover{
+    background: #02a179;
 }
 .purchased-box p, .income-box p{
     font-size: 12px;
