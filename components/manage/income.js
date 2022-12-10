@@ -236,7 +236,7 @@ export default function Income() {
                                 <button className="btn btn-close-modal" title="Close" data-bs-dismiss="modal"><FontAwesomeIcon icon={faClose} width="14.5px"/></button>
                                 <h6>Add Income Item</h6>
                                 <div className="form-floating mt-3">
-                                    <input type="text" className="form-control" id="floatingInput" onChange={(e)=> setIncomeName(e.target.value)}></input>
+                                    <input type="text" className="form-control" id="floatingInput" onChange={(e)=> setIncomeSource(e.target.value)}></input>
                                     <label htmlFor="floatingInput">Item Source</label>
                                 </div>
                                 <div className="form-floating mt-3">

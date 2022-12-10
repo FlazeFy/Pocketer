@@ -9,8 +9,9 @@ export default async function handler(req, res) {
     });
 
     try {
-        const query = "SELECT SUM(purchased_price) as total "+
-            "FROM `purchased`";
+        const query = "SELECT SUM(purchased.purchased_price) as total FROM `purchased` "+
+            "UNION "+
+            "SELECT SUM(income.income_price) as total FROM `income` ";
         const values = [];
         const [data] = await dbconnection.execute(query, values);
         dbconnection.end();
