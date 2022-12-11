@@ -49,6 +49,14 @@
   font-size: 4rem;
 }
 
+.app_title{
+  font-size: 50px !important;
+}
+.app_subtitle{
+  font-size: 25px !important;
+  color: #808080 !important;
+}
+
 .title,
 .description {
   text-align: center;

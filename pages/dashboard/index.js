@@ -94,16 +94,20 @@ export default function Highlight() {
                     <Welcome/>
                     <div className='row pb-5'>
                         <div className='col-lg-3 col-md-6 col-sm-6'>
-                            <div className="box-highlight">
-                                <h6><FontAwesomeIcon icon={faSackDollar} width="18px"/> &nbsp;&nbsp;Ballance</h6>
-                                <button className="btn btn-transparent box-setting" title="Setting"><FontAwesomeIcon icon={faEllipsisVertical} width="4.5px"/></button>
-                                <h5 className="box-main-text">Rp. 39.000.000</h5>
-                                <h6 className="box-secondary-text">Last Updated: 28 Nov 22</h6>
-                                <button className="btn btn-outline-more box-more" title="See more"><FontAwesomeIcon icon={faChevronRight} width="14px"/></button>
-                            </div>
                             {
                                 data.map((val, i, index) => {
                                     if(i == 0){
+                                        return (
+                                            <div className="box-highlight" key={i}>
+                                                <h6><FontAwesomeIcon icon={faSackDollar} width="18px"/> &nbsp;&nbsp;Ballance</h6>
+                                                <button className="btn btn-transparent box-setting" title="Setting"><FontAwesomeIcon icon={faEllipsisVertical} width="4.5px"/></button>
+                                                <h5 className="box-main-text">Rp. {val.total}</h5>
+                                                <h6 className="box-secondary-text">Last Updated: {dateConvert(val.lastdate)}</h6>
+                                                <button className="btn btn-outline-more box-more" title="See more"><FontAwesomeIcon icon={faChevronRight} width="14px"/></button>
+                                            </div>
+                                        );
+                                    }
+                                    if(i == 1){
                                         spend = val.total;
                                         spendDate = val.lastdate;
 
@@ -116,7 +120,7 @@ export default function Highlight() {
                                                 <button className="btn btn-outline-more box-more" title="See more"><FontAwesomeIcon icon={faChevronRight} width="14px"/></button>
                                             </div>
                                         );
-                                    } else if(i == 1){
+                                    } else if(i == 2){
                                         return(
                                             <div key={i}>
                                                 <div className="box-highlight">
@@ -140,21 +144,21 @@ export default function Highlight() {
                             }
                         </div>
                         <div className='col-lg-5 col-md-6 col-sm-6'>
-                        <SpendingLineChart/>
-                        <SpendingCategoryChart/>
+                            <SpendingLineChart/>
+                            <SpendingCategoryChart/>
                         </div>
                         <div className='col-lg-4 col-md-6 col-sm-12'>
-                        <Purchased/>
+                            <Purchased/>
                         </div>
                         <div className='col-lg-3 col-md-6 col-sm-6'>
                         
                         </div>
                         <div className='col-lg-5 col-md-6 col-sm-6'>
-                        <IncomeLineChart/>
-                        <IncomeCategoryChart/>
+                            <IncomeLineChart/>
+                            <IncomeCategoryChart/>
                         </div>
                         <div className='col-lg-4 col-md-6 col-sm-12'>
-                        <Income/>
+                            <Income/>
                         </div>
                     </div>
                 </main>

@@ -18,7 +18,9 @@ export default function Navbar(props) {
     return (
         <nav className="navbar navbar-expand-lg w-100">
             <div className="container-fluid">
-                <a className="navbar-brand" href="#">Pocketer</a>
+                <Link href="/">
+                    <li className="navbar-brand">Pocketer</li>
+                </Link>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
                 </button>
