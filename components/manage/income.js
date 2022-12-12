@@ -11,10 +11,12 @@ export default function Income() {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [items, setItems] = useState([]);
+    const [itemsWallet, setItemsWallet] = useState([]);
 
     //Form input
     const [income_source, setIncomeSource] = useState("");
     const [income_desc, setIncomeDesc] = useState("");
+    const [income_wallet, setIncomeWallet] = useState([]);
     const [income_category, setIncomeCategory] = useState("Main Job");
     const [income_price, setIncomePrice] = useState();
 
@@ -23,6 +25,7 @@ export default function Income() {
 
     //Converter
     const data = Object.values(items);
+    const dataWallet = Object.values(itemsWallet);
 
     useEffect(() => {
         fetch("http://localhost:3000/api/income/manage",
@@ -35,6 +38,25 @@ export default function Income() {
             (result) => {
                 setIsLoaded(true);
                 setItems(result.data);
+            },
+            (error) => {
+                setIsLoaded(true);
+                setError(error);
+            }
+        )
+    },[])
+
+    useEffect(() => {
+        fetch("http://localhost:3000/api/balance/wallet",
+            {
+                method: "GET"
+            }
+        )
+        .then(res => res.json())
+            .then(
+            (result) => {
+                setIsLoaded(true);
+                setItemsWallet(result.data);
             },
             (error) => {
                 setIsLoaded(true);
@@ -90,13 +112,22 @@ export default function Income() {
     async function addIncome(e) {
         //e.preventDefault();
         const postData = async () => {
+            //Get wallet id and balance
+            let wallet = income_wallet;
+            const splitBalance = wallet.split(",");
+
+            //New wallet balance
+            const newBalance = parseInt(splitBalance[1]) + parseInt(income_price);
+
             const income = {
                 income_source: income_source,
                 income_desc: income_desc,
                 income_category: income_category,
-                income_price: income_price
+                income_price: income_price,
+                income_desc: income_desc,
+                wallet_id: splitBalance[0],
+                wallet_balance: newBalance
             };
-        
             const response = await fetch("http://localhost:3000/api/income/manage", {
                 method: "POST",
                 body: JSON.stringify(income)
@@ -175,6 +206,16 @@ export default function Income() {
     } else if (!isLoaded) {
         return <div>Loading...</div>;
     } else {
+        function getBalance(income){
+            if(income != ""){
+                let wallet = income;
+                const splitBalance = wallet.split(",");
+                return splitBalance[1];
+            } else {
+                return "-";
+            }
+        }
+
         return (
             <>
                 <div className="table-highlight">
@@ -260,6 +301,27 @@ export default function Income() {
                                             <input type="number" className="form-control" id="floatingInput" min="1" onChange={(e)=> setIncomePrice(e.target.value)}></input>
                                             <label htmlFor="floatingInput">Item Price (Rp.)</label>
                                         </div>
+                                    </div>
+                                </div>
+                                <div className="row mt-3">
+                                    <div className="col">
+                                        <div className="form-floating">
+                                            <select className="form-select" id="floatingSelect" aria-label="Floating label select example" onChange={(e)=> setIncomeWallet(e.target.value)}>
+                                                <option selected>-choose your wallet-</option>
+                                                {
+                                                    dataWallet.map((val, i, index) => {
+                                                        return(
+                                                            <option value={[val.id, val.wallet_balance]} key={i}>{val.wallet_name}</option>
+                                                        );
+                                                    })
+                                                }
+                                            </select>
+                                            <label htmlFor="floatingInput">Add to Wallet</label>
+                                        </div>
+                                    </div>
+                                    <div className="col">
+                                        <p className="m-0">Wallet Balance</p>
+                                        <h5 className="ms-4" style={{color:"#8e57f7", fontWeight:"bold"}}>Rp. {getBalance(income_wallet)}</h5>
                                     </div>
                                 </div>
                                 <button className="btn btn-add-item" title="Submit" style={{ bottom: "20px", right:"-30px"}} onClick={(e) => addIncome()}><FontAwesomeIcon icon={faFloppyDisk} width="16px"/></button>

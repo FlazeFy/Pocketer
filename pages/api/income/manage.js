@@ -13,6 +13,8 @@ export default async function handler(req, res) {
       try {
         const body = JSON.parse(req.body)
         const user_id = 1 //for now
+        const wallet_id = body.wallet_id
+        const wallet_balance = body.wallet_balance
         const income_source = body.income_source
         const income_desc = body.income_desc
         const income_category = body.income_category
@@ -21,15 +23,27 @@ export default async function handler(req, res) {
         const updated_at = new Date()
         
         dbconnection.query("INSERT INTO " +
-          "income (id, user_id, income_source, income_desc, income_category, income_price, income_created_at, income_updated_at) " +
-          "VALUES (?, ?, ?, ?, ?, ?, ?, ?)", 
-          [null, user_id, income_source, income_desc, income_category, income_price, created_at, updated_at], (error, rows, fields) => {
+          "income (id, user_id, wallet_id, income_source, income_desc, income_category, income_price, income_created_at, income_updated_at) " +
+          "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", 
+          [null, user_id, wallet_id, income_source, income_desc, income_category, income_price, created_at, updated_at], (error, rows, fields) => {
           if (error) {
-              res.status(400).json({ msg: "Error :" + error })
+            res.status(400).json({ msg: "Error :" + error })
           } else {
-              res.status(200).json({ msg: "Insert Item Success",status:200, data: rows })
+            res.status(200).json({ msg: "Update Item Success",status:200, data: rows })
           }
         })
+        dbconnection.query("UPDATE " +
+          "wallet SET wallet_balance = ?, wallet_updated_at = ? " +
+          "WHERE id = ? ", 
+          [wallet_balance, updated_at, wallet_id], (errorUpdate, rowsUpdate, fields) => {
+          if (errorUpdate) {
+            res.status(400).json({ msg: "Error :" + errorUpdate })
+          } else {
+            res.status(200).json({ msg: "Update Item Success",status:200, data: rowsUpdate })
+          }
+        })
+
+        //Check this respond status
       } catch (error) {
         console.log("Post data error");
       }

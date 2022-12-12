@@ -9,7 +9,7 @@ export default async function handler(req, res) {
     });
 
     try {
-        const query = "SELECT sum(wallet_balance) as balance "+
+        const query = "SELECT id, wallet_name, wallet_balance "+
             "FROM `wallet` WHERE user_id = 1";
         const values = [];
         const [data] = await dbconnection.execute(query, values);
