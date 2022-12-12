@@ -11,18 +11,21 @@ export default function Purchased() {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [items, setItems] = useState([]);
+    const [itemsWallet, setItemsWallet] = useState([]);
 
     //Form input
     const [purchased_name, setPurchasedName] = useState("");
     const [purchased_desc, setPurchasedDesc] = useState("");
     const [purchased_category, setPurchasedCategory] = useState("Food & Drink");
     const [purchased_price, setPurchasedPrice] = useState();
+    const [purchased_wallet, setPurchasedWallet] = useState([]);
 
     var total = 0;
     var dateBefore = null;
 
     //Converter
     const data = Object.values(items);
+    const dataWallet = Object.values(itemsWallet);
 
     useEffect(() => {
         fetch("http://localhost:3000/api/purchased",
@@ -43,14 +46,42 @@ export default function Purchased() {
         )
     },[])
 
+    useEffect(() => {
+        fetch("http://localhost:3000/api/balance/wallet",
+            {
+                method: "GET"
+            }
+        )
+        .then(res => res.json())
+            .then(
+            (result) => {
+                setIsLoaded(true);
+                setItemsWallet(result.data);
+            },
+            (error) => {
+                setIsLoaded(true);
+                setError(error);
+            }
+        )
+    },[])
+
     async function addPurchased(e) {
         //e.preventDefault();
         const postData = async () => {
+            //Get wallet id and balance
+            let wallet = purchased_wallet;
+            const splitBalance = wallet.split(",");
+
+            //New wallet balance
+            const newBalance = parseInt(splitBalance[1]) - parseInt(purchased_price);
+
             const purchased = {
                 purchased_name: purchased_name,
                 purchased_desc: purchased_desc,
                 purchased_category: purchased_category,
-                purchased_price: purchased_price
+                purchased_price: purchased_price,
+                wallet_id: splitBalance[0],
+                wallet_balance: newBalance
             };
         
             const response = await fetch("http://localhost:3000/api/purchased", {
@@ -194,6 +225,16 @@ export default function Purchased() {
     } else if (!isLoaded) {
         return <div>Loading...</div>;
     } else {
+        function getBalance(income){
+            if(income != ""){
+                let wallet = income;
+                const splitBalance = wallet.split(",");
+                return splitBalance[1];
+            } else {
+                return "-";
+            }
+        }
+
         return (
             <>
                 <div className="table-highlight">
@@ -279,6 +320,27 @@ export default function Purchased() {
                                             <input type="number" className="form-control" id="floatingInput" min="1" onChange={(e)=> setPurchasedPrice(e.target.value)}></input>
                                             <label htmlFor="floatingInput">Item Price (Rp.)</label>
                                         </div>
+                                    </div>
+                                </div>
+                                <div className="row mt-3">
+                                    <div className="col">
+                                        <div className="form-floating">
+                                            <select className="form-select" id="floatingSelect" aria-label="Floating label select example" onChange={(e)=> setPurchasedWallet(e.target.value)}>
+                                                <option selected>-choose your wallet-</option>
+                                                {
+                                                    dataWallet.map((val, i, index) => {
+                                                        return(
+                                                            <option value={[val.id, val.wallet_balance]} key={i}>{val.wallet_name}</option>
+                                                        );
+                                                    })
+                                                }
+                                            </select>
+                                            <label htmlFor="floatingInput">From Wallet</label>
+                                        </div>
+                                    </div>
+                                    <div className="col">
+                                        <p className="m-0">Wallet Balance</p>
+                                        <h5 className="ms-4" style={{color:"#8e57f7", fontWeight:"bold"}}>Rp. {getBalance(purchased_wallet)}</h5>
                                     </div>
                                 </div>
                                 <button className="btn btn-add-item" title="Submit" style={{ bottom: "20px", right:"-30px"}} onClick={(e) => addPurchased()}><FontAwesomeIcon icon={faFloppyDisk} width="16px"/></button>
