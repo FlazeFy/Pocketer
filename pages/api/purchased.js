@@ -77,6 +77,9 @@ export default async function handler(req, res) {
       try {
         const body = JSON.parse(req.body)
         const id = body.id
+        const wallet_id = body.wallet_id
+        const wallet_balance = body.wallet_balance
+        const updated_at = new Date()
         
         dbconnection.query("DELETE " +
           "FROM `purchased`" +
@@ -88,13 +91,24 @@ export default async function handler(req, res) {
               res.status(200).json({ msg: "Delete Item Success",status:200, data: rows })
           }
         })
+
+        dbconnection.query("UPDATE " +
+          "wallet SET wallet_balance = ?, wallet_updated_at = ? " +
+          "WHERE id = ? ", 
+          [wallet_balance, updated_at, wallet_id], (errorUpdate, rowsUpdate, fields) => {
+          if (errorUpdate) {
+            res.status(400).json({ msg: "Error :" + errorUpdate })
+          } else {
+            res.status(200).json({ msg: "Update Item Success",status:200, data: rowsUpdate })
+          }
+        })
       } catch (error) {
         console.log("Put data error");
       }
       break;
     default: 
       try {
-        const query = "SELECT * FROM `purchased` WHERE user_id = 1 ORDER BY purchased_created_at DESC";
+        const query = "SELECT purchased.id, wallet_id, purchased_name, purchased_desc, purchased_category, purchased_price, purchased_updated_at, wallet_balance, purchased_created_at  FROM `purchased` JOIN `wallet` ON purchased.wallet_id = wallet.id WHERE purchased.user_id = 1 ORDER BY purchased_created_at DESC";
         const values = [];
         const [data] = await dbconnection.execute(query, values);
         dbconnection.end();

@@ -95,11 +95,15 @@ export default function Purchased() {
         });
     }
 
-    async function removePurchased(e, id) {
+    async function removePurchased(e, id, wallet_id, balance, price) {
         //e.preventDefault();
+        const newBalance = parseInt(balance) + parseInt(price);
+
         const deleteData = async () => {
             const purchased = {
-                id: id
+                id: id,
+                wallet_balance: newBalance,
+                wallet_id: wallet_id,
             };
         
             const response = await fetch("http://localhost:3000/api/purchased", {
@@ -211,7 +215,7 @@ export default function Purchased() {
                                     </div>
                                 </div>
                             </div>
-                            <a className="btn-link-danger" onClick={(e) => removePurchased(e, val.id)}><FontAwesomeIcon icon={faTrash} width="13.5px"/> Delete This Item</a>
+                            <a className="btn-link-danger" onClick={(e) => removePurchased(e, val.id, val.wallet_id, val.wallet_balance, val.purchased_price)}><FontAwesomeIcon icon={faTrash} width="13.5px"/> Delete This Item</a>
                             <button className="btn btn-add-item" title="Submit" style={{ bottom: "20px", right:"-30px"}} onClick={(e) => editPurchased(val)}><FontAwesomeIcon icon={faFloppyDisk} width="16px"/></button>
                         </div>
                     </div>
