@@ -156,6 +156,28 @@ export default function Income() {
         }
     }
 
+    async function removeIncome(e, id, wallet_id, balance, price) {
+        //e.preventDefault();
+        const newBalance = parseInt(balance) - parseInt(price);
+
+        const deleteData = async () => {
+            const income = {
+                id: id,
+                wallet_balance: newBalance,
+                wallet_id: wallet_id,
+            };
+        
+            const response = await fetch("http://localhost:3000/api/income/manage", {
+                method: "DELETE",
+                body: JSON.stringify(income)
+            });
+            return response.json();
+        };
+        deleteData().then((income) => {
+            alert(income.msg);
+        });
+    }
+
     //Edit modal
     function modalEdit(val){
         const modalId = "editIncome"+val.id;
@@ -193,6 +215,7 @@ export default function Income() {
                                     </div>
                                 </div>
                             </div>
+                            <a className="btn-link-danger" onClick={(e) => removeIncome(e, val.id, val.wallet_id, val.wallet_balance, val.income_price)}><FontAwesomeIcon icon={faTrash} width="13.5px"/> Delete This Item</a>
                             <button className="btn btn-add-item" title="Submit" style={{ bottom: "20px", right:"-30px"}} onClick={(e) => editincome(val)}><FontAwesomeIcon icon={faFloppyDisk} width="16px"/></button>
                         </div>
                     </div>

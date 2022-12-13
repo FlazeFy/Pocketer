@@ -72,9 +72,39 @@ export default async function handler(req, res) {
         console.log("Put data error");
       }
     break;
+    case 'DELETE':
+      const body = JSON.parse(req.body)
+      const id = body.id
+      const wallet_id = body.wallet_id
+      const wallet_balance = body.wallet_balance
+      const updated_at = new Date()
+      
+      dbconnection.query("DELETE " +
+        "FROM `income`" +
+        "WHERE id = ? ", 
+        [id], (error, rows, fields) => {
+        if (error) {
+            res.status(400).json({ msg: "Error :" + error })
+        } else {
+            res.status(200).json({ msg: "Delete Item Success",status:200, data: rows })
+        }
+      })
+
+      dbconnection.query("UPDATE " +
+        "wallet SET wallet_balance = ?, wallet_updated_at = ? " +
+        "WHERE id = ? ", 
+        [wallet_balance, updated_at, wallet_id], (errorUpdate, rowsUpdate, fields) => {
+        if (errorUpdate) {
+          res.status(400).json({ msg: "Error :" + errorUpdate })
+        } else {
+          res.status(200).json({ msg: "Update Item Success",status:200, data: rowsUpdate })
+        }
+      })
+    break;
     default: 
       try {
-        const query = "SELECT * FROM `income` WHERE user_id = 1 ORDER BY income_created_at DESC";
+        const query = "SELECT income.id, wallet_id, income_source, income_desc, income_category, income_price, income_updated_at, wallet_balance, income_created_at "+ 
+          "FROM `income` JOIN `wallet` ON income.wallet_id = wallet.id WHERE income.user_id = 1 ORDER BY income_created_at DESC";
         const values = [];
         const [data] = await dbconnection.execute(query, values);
         dbconnection.end();
