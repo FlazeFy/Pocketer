@@ -125,6 +125,44 @@ textarea{
   color:white !important;
 }
 
+/*Carousel*/
+.carousel-control{
+  width: 40px !important;
+  height: 40px !important;
+  color: #8e57f7 !important;
+  position: absolute;
+  border-radius: 100%;
+  border: 2px solid #8e57f7;
+  background: transparent;
+}
+
+.carousel-control.next{
+  position: absolute;
+  right: -10px !important;
+  top:14vh !important;
+}
+.carousel-control.prev{
+  position: absolute;
+  right: -10px !important;
+  top:7vh !important;
+}
+
+.carousel-control:hover{
+  background: #8e57f7 !important;
+  color: white !important;
+}
+
+.carousel-indicators{
+  bottom: -50px !important;
+}
+.carousel-indicators button{
+  background: #8e57f7 !important;
+  padding: 0px;
+  /* position: absolute; */
+  width: 8px !important;
+}
+
+
 /*Modal*/
 .btn-close-modal{
   background: #FF5691 !important;
