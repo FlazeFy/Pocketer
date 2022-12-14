@@ -36,7 +36,7 @@ export default async function handler(req, res) {
     default:
         try {
             const query = "SELECT * "+
-                "FROM `wallet` WHERE user_id = 1";
+                "FROM `wallet` WHERE user_id = 1 ORDER BY wallet_balance DESC";
             const values = [];
             const [data] = await dbconnection.execute(query, values);
             dbconnection.end();

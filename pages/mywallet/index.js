@@ -10,6 +10,7 @@ import { library } from "@fortawesome/fontawesome-svg-core"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons"
 import { } from "@fortawesome/free-regular-svg-icons"
+import BalanceTotalChart from "../../components/chart/balance/wallet"
 
 export default function Mywallet() {
     //Initial variable
@@ -95,6 +96,14 @@ export default function Mywallet() {
                             <FontAwesomeIcon icon={faArrowRight} width="20px"/>
                                 <span className="visually-hidden">Next</span>
                         </button>
+                    </div>
+                    <div className="row mt-4">
+                        <div className="col-lg-5 col-md-5 col-sm-12">
+                            <BalanceTotalChart/>
+                        </div>
+                        <div className="col-lg-7 col-md-7 col-sm-12">
+                            
+                        </div>
                     </div>
                 </main>
             </div>
