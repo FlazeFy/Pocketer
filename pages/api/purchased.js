@@ -109,7 +109,7 @@ export default async function handler(req, res) {
     default: 
       try {
         const query = "SELECT purchased.id, wallet_id, purchased_name, purchased_desc, purchased_category, purchased_price, purchased_updated_at, wallet_balance, purchased_created_at " + 
-          "FROM `purchased` JOIN `wallet` ON purchased.wallet_id = wallet.id WHERE purchased.user_id = 1 ORDER BY purchased_created_at DESC";
+          "FROM `purchased` LEFT JOIN `wallet` ON purchased.wallet_id = wallet.id WHERE purchased.user_id = 1 ORDER BY purchased_created_at DESC";
         const values = [];
         const [data] = await dbconnection.execute(query, values);
         dbconnection.end();

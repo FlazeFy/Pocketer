@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 //Font awesome icon
 import { library } from "@fortawesome/fontawesome-svg-core"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faClose, faEdit, faEllipsisVertical, faFloppyDisk, faWallet } from "@fortawesome/free-solid-svg-icons"
+import { faClose, faEdit, faEllipsisVertical, faFloppyDisk, faTrash, faWallet } from "@fortawesome/free-solid-svg-icons"
 import {  } from "@fortawesome/free-regular-svg-icons"
 
 const WalletBox = ({props, crslLength}) => {
@@ -63,6 +63,24 @@ const WalletBox = ({props, crslLength}) => {
         });
     }
 
+    async function removeWallet(e, id) {
+        //e.preventDefault();
+        const deleteData = async () => {
+            const balance = {
+                id: id,
+            };
+        
+            const response = await fetch("http://localhost:3000/api/balance/wallet", {
+                method: "DELETE",
+                body: JSON.stringify(balance)
+            });
+            return response.json();
+        };
+        deleteData().then((balance) => {
+            alert(balance.msg);
+        });
+    }
+
     //Edit modal
     function modalEdit(val){
         const modalId = "editWallet"+val.id;
@@ -101,6 +119,7 @@ const WalletBox = ({props, crslLength}) => {
                                     </div>
                                 </div>
                             </div>
+                            <a className="btn-link-danger" onClick={(e) => removeWallet(e, val.id)}><FontAwesomeIcon icon={faTrash} width="13.5px"/> Delete This Wallet</a>
                             <button className="btn btn-add-item" title="Submit" style={{ bottom: "20px", right:"-30px"}} onClick={(e) => editWallet(val)}><FontAwesomeIcon icon={faFloppyDisk} width="16px"/></button>
                         </div>
                     </div>

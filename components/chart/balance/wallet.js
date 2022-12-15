@@ -60,7 +60,7 @@ export default function BalanceTotalChart() {
 
     return (
         <div className="chart-highlight">
-        <h6>Total Balance by Walelt</h6>
+        <h6>Total Balance by Wallet</h6>
         <button className="btn btn-transparent box-setting" title="Setting"><FontAwesomeIcon icon={faEllipsisVertical} width="4.5px"/></button>
         <div className="BalanceChart me-4">
             <div className="row">

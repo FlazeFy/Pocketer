@@ -104,7 +104,7 @@ export default async function handler(req, res) {
     default: 
       try {
         const query = "SELECT income.id, wallet_id, income_source, income_desc, income_category, income_price, income_updated_at, wallet_balance, income_created_at "+ 
-          "FROM `income` JOIN `wallet` ON income.wallet_id = wallet.id WHERE income.user_id = 1 ORDER BY income_created_at DESC";
+          "FROM `income` LEFT JOIN `wallet` ON income.wallet_id = wallet.id WHERE income.user_id = 1 ORDER BY income_created_at DESC";
         const values = [];
         const [data] = await dbconnection.execute(query, values);
         dbconnection.end();

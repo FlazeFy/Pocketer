@@ -33,6 +33,85 @@ export default async function handler(req, res) {
             console.log("Put data error");
         }
         break;
+        case 'DELETE':
+        try {
+            const body = JSON.parse(req.body)
+            const id = body.id //wallet id
+            const user_id = 1 //for now
+            var setting
+            var set
+            const updated_at = new Date()
+            
+            const query = "SELECT * "+
+                "FROM `setting` WHERE user_id = "+ user_id;
+            const values = [];
+            const [data] = await dbconnection.execute(query, values);
+            // dbconnection.end();
+
+            data.forEach(element => {
+                setting = element.setting_config
+
+                //Make valid json.
+                let result = setting.replace(/'/g, '"');
+                var data2 = JSON.parse(result);
+
+                //Get setting value.
+                data2.forEach(element2 => {
+                    if(element2.type == "delete_wallet_with_item"){
+                        set = element2.value 
+                    }
+                });
+            });
+                
+            if(!set){
+                dbconnection.query("DELETE " +
+                    "FROM `wallet`" +
+                    "WHERE id = ? ", 
+                    [id], (error2, rows2, fields) => {
+                    if (error2) {
+                        res.status(400).json({ msg: "Error :" + error2 })
+                    } else {
+                        res.status(200).json({ msg: "Delete Wallet Success", status:200, data: rows2 })
+                    }
+                })
+            } else {
+                dbconnection.query("UPDATE " +
+                "income SET wallet_id = 0, income_updated_at = ? " +
+                "WHERE wallet_id = ? ", 
+                [updated_at, id], (error3, rows3, fields) => {
+                if (error3) {
+                    res.status(400).json({ msg: "Error :" + error3 })
+                } else {
+                    res.status(200).json({ msg: "Item updated",status:200, data: rows3 })
+                }
+                })
+
+                dbconnection.query("UPDATE " +
+                "purchased SET wallet_id = 0, purchased_updated_at = ? " +
+                "WHERE wallet_id = ? ", 
+                [updated_at, id], (error4, rows4, fields) => {
+                if (error4) {
+                    res.status(400).json({ msg: "Error :" + error4 })
+                } else {
+                    res.status(200).json({ msg: "Item updated",status:200, data: rows4 })
+                }
+                })
+
+                dbconnection.query("DELETE " +
+                    "FROM `wallet`" +
+                    "WHERE id = ? ", 
+                    [id], (error5, rows5, fields) => {
+                    if (error5) {
+                        res.status(400).json({ msg: "Error :" + error5 })
+                    } else {
+                        res.status(200).json({ msg: "Delete Wallet Success",status:200, data: rows5 })
+                    }
+                })
+            }
+        } catch (error) {
+            console.log("Delete data error");
+        }
+        break;
     default:
         try {
             const query = "SELECT * "+
